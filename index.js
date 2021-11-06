@@ -20,11 +20,15 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("The documentary will be here");
+  res.send("SOrry! I changed my mind, Check API Documentation in API-Test.http file.");
 });
 
 app.use("/api/user", userRoutes);
 app.use("/api/matric", matricRoutes);
+
+app.use("*", (req, res) =>
+  res.status(404).json({ success: false, message: "This route is not found!" })
+);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}!`);

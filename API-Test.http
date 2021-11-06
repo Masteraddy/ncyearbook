@@ -1,4 +1,6 @@
 # NOTE: You can add Bearer in the front of Token on Authorization Header or Not
+# Email Verification will be added later
+
 
 #Only Admin Usertype have the authorization to use matric apis
 
