@@ -1,0 +1,102 @@
+# NOTE: You can add Bearer in the front of Token on Authorization Header or Not
+
+#Only Admin Usertype have the authorization to use matric apis
+
+#Add Matric No
+POST http://localhost:3030/api/matric HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODQzNmQ4OTg4MjVhYWMzNzNjNjFiMiIsIm1hdHJpYyI6MTUwMDAyLCJpYXQiOjE2MzYwNTQ5OTIsImV4cCI6MTYzNjA1ODU5Mn0.I_5h9WM5cpNjnPM-2MX3YqpmbytkFCZCFR-KpVghEr8
+
+{
+  "matric": "150002"
+}
+
+#Get All Matric No
+####
+GET http://localhost:3030/api/matric HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODQzODZmNGFiNzJhYmNjMGFlMTM4NiIsInVzZXJ0eXBlIjoiYWRtaW4iLCJpYXQiOjE2MzYxNzg2MzksImV4cCI6MTYzNjE4MjIzOX0.JMNiwz7GXIczgpCYhPw_1sDDAu2uuk-5ixJ7GO0Ajmk
+
+#Get A Matric No with ID
+####
+GET http://localhost:3030/api/matric/618423e9a3422d9792447c44 HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODQzNmQ4OTg4MjVhYWMzNzNjNjFiMiIsIm1hdHJpYyI6MTUwMDAyLCJpYXQiOjE2MzYwNTQ5OTIsImV4cCI6MTYzNjA1ODU5Mn0.I_5h9WM5cpNjnPM-2MX3YqpmbytkFCZCFR-KpVghEr8
+
+#Delete Matric No
+####
+DELETE http://localhost:3030/api/matric/618423e9a3422d9792447c44 HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODQzNmQ4OTg4MjVhYWMzNzNjNjFiMiIsIm1hdHJpYyI6MTUwMDAyLCJpYXQiOjE2MzYwNTQ5OTIsImV4cCI6MTYzNjA1ODU5Mn0.I_5h9WM5cpNjnPM-2MX3YqpmbytkFCZCFR-KpVghEr8
+
+#End of matric API
+
+
+#Check matric before registration
+####
+POST http://localhost:3030/api/user/checkmatric HTTP/1.1
+content-type: application/json
+
+{
+  "matric": "150002"
+}
+
+#Make Registration with token gotten from check matric API on Authorization header
+####
+POST http://localhost:3030/api/user/register HTTP/1.1
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODQzNmQ4OTg4MjVhYWMzNzNjNjFiMiIsIm1hdHJpYyI6MTUwMDAyLCJpYXQiOjE2MzYwNTQ5OTIsImV4cCI6MTYzNjA1ODU5Mn0.I_5h9WM5cpNjnPM-2MX3YqpmbytkFCZCFR-KpVghEr8
+
+{
+    "firstname": "Zoe",
+    "lastname": "Doe",
+    "middlename": "Zayn",
+    "email": "zain@demo.com",
+    "password": "test",
+    "matric": "150002",
+    "dateofbirth": "2004-12-2",
+    "username": "john12",
+    "usertype": "admin", // ["admin", "user"], "user" by default,
+    "about": "Something about me",
+    "location": "Somewhere in the world",
+    "picture": "imagelinkhere"
+}
+
+#Get all register users
+####
+GET http://localhost:3030/api/user HTTP/1.1
+
+#Get a user with ID
+####
+GET http://localhost:3030/api/user/618423e9a3422d9792447c44 HTTP/1.1
+
+#User login API with Email || Support for matric no or username will be added later
+####
+POST http://localhost:3030/api/user/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "zain@demo.com",
+    "password": "testing"
+}
+
+#User Info Update API by User and Admin 
+#Only Admin can change Usertype
+#Matric no can't be changed
+####
+PATCH http://localhost:3030/api/user/6184386f4ab72abcc0ae1386 HTTP/1.1
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODQzODZmNGFiNzJhYmNjMGFlMTM4NiIsInVzZXJ0eXBlIjoidXNlciIsImlhdCI6MTYzNjE3ODU1NCwiZXhwIjoxNjM2MTgyMTU0fQ.rya9k7ukCQuzkNm6kqouYrJPmWLfI4Zs3LY_BMaOAoA
+
+{
+    "firstname": "Zoe",
+    "lastname": "Doe",
+    "middlename": "Zayn",
+    "email": "zain@demo.com",
+    "password": "testing",
+    "matric": "150003",
+    "dateofbirth": "2004-12-2",
+    "username": "zoe12"
+}
+
+# Delete User Only By Admin
+####
+DELETE  http://localhost:3030/api/user/6184386f4ab72abcc0ae1386 HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxODQzODZmNGFiNzJhYmNjMGFlMTM4NiIsInVzZXJ0eXBlIjoidXNlciIsImlhdCI6MTYzNjE3MzE0OSwiZXhwIjoxNjM2MTc2NzQ5fQ.nbQpnckQI0nl9tQ4CUtQon9GacVII-kcdWQlSTeY-FU
